@@ -18,14 +18,11 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: Instalar Snyk
-        run: npm install -g snyk
+      - name: Instalar Snyk e snyk-to-sarif
+        run: npm install -g snyk snyk-to-sarif
 
       - name: Autenticar Snyk
         run: snyk auth ${{ secrets.SNYK_TOKEN }}
-      
-      - name: Instalar snyk-to-sarif
-        run: npm install -g snyk-to-sarif
 
       - name: Executar SCA
         run: | 
