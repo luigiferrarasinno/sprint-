@@ -26,13 +26,9 @@ jobs:
 
       - name: Executar SCA Snyk Test
         run: |
-            snyk test --all-projects --json > snyk-report.json || true
-            if [ ! -s snyk-report.json ] || ! grep -q "vulnerabilities" snyk-report.json; then
-            echo '{"vulnerabilities":[]}' > snyk-report.json
-            fi
+            snyk test --all-projects --json > snyk-report.json
             snyk-to-sarif -i snyk-report.json -o snyk-report.sarif
-
-
+            
       - name: Upload do relatório
         uses: actions/upload-artifact@v4
         with:
