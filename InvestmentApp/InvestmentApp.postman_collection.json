@@ -1,0 +1,340 @@
+{
+  "info": {
+    "name": "InvestmentApp API",
+    "description": "Coleção de requests para testar a API de investimentos",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Maria Silva\",\n  \"email\": \"maria.silva@email.com\",\n  \"senha\": \"senha123456\",\n  \"cpf\": \"12345678901\",\n  \"dataNascimento\": \"1990-05-15T00:00:00Z\",\n  \"role\": \"User\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": ["{{baseUrl}}"],
+              "path": ["users"]
+            }
+          }
+        },
+        {
+          "name": "Get All Users (Admin Only)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "userId",
+                "value": "{{adminUserId}}",
+                "description": "ID do usuário admin"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": ["{{baseUrl}}"],
+              "path": ["users"]
+            }
+          }
+        },
+        {
+          "name": "Get User by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "userId",
+                "value": "{{userId}}",
+                "description": "ID do usuário fazendo a requisição"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/{{userId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "{{userId}}"]
+            }
+          }
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "userId",
+                "value": "{{userId}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Maria Silva Santos\",\n  \"email\": \"maria.santos@email.com\",\n  \"dataNascimento\": \"1990-05-15T00:00:00Z\",\n  \"role\": \"User\",\n  \"isActive\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/{{userId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "{{userId}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete User (Admin Only)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "userId",
+                "value": "{{adminUserId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/{{userId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "{{userId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Investments",
+      "item": [
+        {
+          "name": "Get All Investments",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/investimentos",
+              "host": ["{{baseUrl}}"],
+              "path": ["investimentos"]
+            }
+          }
+        },
+        {
+          "name": "Get Investment by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/investimentos/{{investmentId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["investimentos", "{{investmentId}}"]
+            }
+          }
+        },
+        {
+          "name": "Create Investment (Admin Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "userId",
+                "value": "{{adminUserId}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"CDB Banco XYZ\",\n  \"type\": \"Renda Fixa\",\n  \"baseValue\": 1000.00,\n  \"expectedYieldPercent\": 12.5,\n  \"riskLevel\": \"Baixo\",\n  \"description\": \"Certificado de Depósito Bancário com liquidez diária\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/investimentos",
+              "host": ["{{baseUrl}}"],
+              "path": ["investimentos"]
+            }
+          }
+        },
+        {
+          "name": "Update Investment (Admin Only)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "userId",
+                "value": "{{adminUserId}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"CDB Banco XYZ Premium\",\n  \"type\": \"Renda Fixa\",\n  \"baseValue\": 1000.00,\n  \"expectedYieldPercent\": 13.0,\n  \"riskLevel\": \"Baixo\",\n  \"description\": \"Certificado de Depósito Bancário Premium com liquidez diária\",\n  \"isActive\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/investimentos/{{investmentId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["investimentos", "{{investmentId}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Investment (Admin Only)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "userId",
+                "value": "{{adminUserId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/investimentos/{{investmentId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["investimentos", "{{investmentId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "User Investments",
+      "item": [
+        {
+          "name": "Get User Investments",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "userId",
+                "value": "{{userId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/{{userId}}/investimentos",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "{{userId}}", "investimentos"]
+            }
+          }
+        },
+        {
+          "name": "Create User Investment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "userId",
+                "value": "{{userId}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"investmentId\": \"{{investmentId}}\",\n  \"amountInvested\": 5000.00,\n  \"units\": 5.0,\n  \"purchaseDate\": \"2024-01-15T10:30:00Z\",\n  \"currentValue\": 5125.00,\n  \"status\": \"Ativo\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/{{userId}}/investimentos",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "{{userId}}", "investimentos"]
+            }
+          }
+        },
+        {
+          "name": "Get Specific User Investment",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "userId",
+                "value": "{{userId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/{{userId}}/investimentos/{{userInvestmentId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "{{userId}}", "investimentos", "{{userInvestmentId}}"]
+            }
+          }
+        },
+        {
+          "name": "Update User Investment",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "userId",
+                "value": "{{userId}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amountInvested\": 7500.00,\n  \"units\": 7.5,\n  \"purchaseDate\": \"2024-01-15T10:30:00Z\",\n  \"currentValue\": 7687.50,\n  \"status\": \"Ativo\",\n  \"isActive\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/{{userId}}/investimentos/{{userInvestmentId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "{{userId}}", "investimentos", "{{userInvestmentId}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete User Investment",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "userId",
+                "value": "{{userId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/{{userId}}/investimentos/{{userInvestmentId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "{{userId}}", "investimentos", "{{userInvestmentId}}"]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5020/api",
+      "description": "Base URL da API"
+    },
+    {
+      "key": "userId",
+      "value": "",
+      "description": "ID do usuário (obtido após criar/listar usuários)"
+    },
+    {
+      "key": "adminUserId",
+      "value": "",
+      "description": "ID do usuário admin (obtido após listar usuários como admin)"
+    },
+    {
+      "key": "investmentId",
+      "value": "",
+      "description": "ID do investimento (obtido após listar investimentos)"
+    },
+    {
+      "key": "userInvestmentId",
+      "value": "",
+      "description": "ID do investimento do usuário (obtido após criar investimento do usuário)"
+    }
+  ]
+}
