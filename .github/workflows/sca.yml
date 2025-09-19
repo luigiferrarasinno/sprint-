@@ -18,17 +18,20 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: Instalar Snyk e snyk-to-sarif
-        run: npm install -g snyk snyk-to-sarif
+      - name: Instalar Snyk
+        run: npm install -g snyk
 
       - name: Autenticar Snyk
         run: snyk auth ${{ secrets.SNYK_TOKEN }}
+      
+      - name: Instalar snyk-to-sarif
+        run: npm install -g snyk-to-sarif
 
-      - name: Executar SCA Snyk Test
-        run: |
+      - name: Executar SCA
+        run: | 
             snyk test --all-projects --json > snyk-report.json
             snyk-to-sarif -i snyk-report.json -o snyk-report.sarif
-            
+
       - name: Upload do relatório
         uses: actions/upload-artifact@v4
         with:
