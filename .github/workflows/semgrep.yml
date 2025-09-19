@@ -1,0 +1,41 @@
+name: Semgrep SAST
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  semgrep:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Checkout do repositório
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2. Instalar Semgrep via pip
+      - name: Install Semgrep
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install semgrep
+
+      # 3. Rodar análise
+      - name: Run Semgrep scan
+        run: |
+            semgrep --config "p/csharp" --config "auto" --error --json --output report.json
+            semgrep --config "p/csharp" --config "auto" --sarif --output semgrep.sarif
+
+      # 4. Upload do relatório
+      - name: Upload scan results
+        uses: actions/upload-artifact@v4
+        with:
+          name: semgrep-report
+          path: report.json
+        
+    # 5. Upload do relatório SARIF para Security tab
+      - name: Upload SARIF report
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+            sarif_file: semgrep.sarif
+            github_token: ${{ secrets.GITHUB_TOKEN }}
