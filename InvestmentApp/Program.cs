@@ -85,11 +85,16 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Investment App API V1");
-        c.RoutePrefix = string.Empty; // Set Swagger UI at the app's root
+        c.RoutePrefix = "swagger"; // Set Swagger UI at /swagger path
     });
 }
 
-app.UseHttpsRedirection();
+// Disable HTTPS redirection in development
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
+
 app.UseCors();
 
 app.MapControllers();
@@ -101,12 +106,15 @@ using (var scope = app.Services.CreateScope())
     try
     {
         await context.Database.EnsureCreatedAsync();
-        await DataSeeder.SeedAsync(context);
+        // Temporarily disable seeding due to Oracle compatibility issues
+        // await DataSeeder.SeedAsync(context);
+        var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+        logger.LogInformation("Database created successfully. Seeding disabled temporarily.");
     }
     catch (Exception ex)
     {
         var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "An error occurred while seeding the database.");
+        logger.LogError(ex, "An error occurred while setting up the database.");
     }
 }
 
